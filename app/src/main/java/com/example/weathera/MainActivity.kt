@@ -18,6 +18,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.Column
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             WeatheraTheme {
                 Surface(modifier = Modifier.padding(WindowInsets.systemBars.asPaddingValues())) {
-                    DailyForecast()
+                    Column {
+                        CurrentWeather()
+                        DailyForecast()
+                    }
                 }
             }
         }
