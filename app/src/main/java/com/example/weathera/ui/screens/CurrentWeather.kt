@@ -33,13 +33,15 @@ fun CurrentWeather() {
         }
         Column(
             modifier = Modifier
-                .fillMaxWidth(.5f)
                 .padding(all = 10.dp)
         ) {
             Row(modifier = Modifier.padding(all = 8.dp)){
                 Text(modifier = Modifier.padding(end = 8.dp),
-                    text = "10% P.O.P.")
-                Text(text = "Showers")
+                    text = "10% Chance of Precipitation.")
+            }
+            Row(modifier = Modifier.padding(all = 8.dp)){
+                Text(modifier = Modifier.padding(end = 8.dp),
+                    text = "Condition: Showers")
             }
 
             Text(modifier = Modifier.padding(all = 8.dp),

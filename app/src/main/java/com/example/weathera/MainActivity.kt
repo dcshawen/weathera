@@ -36,11 +36,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.NavController
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +67,20 @@ fun DisplayUI() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Weathera") },
+                title = {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "Weathera"
+                        )
+                        Text(
+                            modifier = Modifier.padding(end = 8.dp),
+                            text = "Halifax, NS"
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary
@@ -78,7 +95,7 @@ fun DisplayUI() {
             {
                 NavigationBarItem(
                     label = { Text("Current Weather") },
-                    icon = { Icon(Icons.Filled.Home, contentDescription = "Home") },
+                    icon = { Icon(Icons.Filled.Home, contentDescription = "Current") },
                     selected = selectedItem == 0,
                     onClick = {
                         selectedItem = 0
@@ -87,7 +104,7 @@ fun DisplayUI() {
                 )
                 NavigationBarItem(
                     label = { Text("Forecast") },
-                    icon = { Icon(Icons.Filled.Settings, contentDescription = "Settings") },
+                    icon = { Icon(Icons.Filled.DateRange, contentDescription = "Forecast") },
                     selected = selectedItem == 1,
                     onClick = {
                         selectedItem = 1
