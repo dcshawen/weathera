@@ -45,14 +45,20 @@ import androidx.navigation.NavController
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.activity.viewModels
+import androidx.compose.runtime.collectAsState
+import com.example.weathera.models.CurrentWeather
+import com.example.weathera.models.Weather
 
 class MainActivity : ComponentActivity() {
+    private val mainViewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             WeatheraTheme {
-                DisplayUI()
+                DisplayUI(mainViewModel)
             }
         }
 
@@ -61,7 +67,8 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DisplayUI() {
+fun DisplayUI(mainViewModel: MainViewModel) {
+    val weather by mainViewModel.weather.collectAsState()
     val navController = rememberNavController()
     var selectedItem by remember { mutableStateOf(0) }
     Scaffold(
@@ -122,8 +129,12 @@ fun DisplayUI() {
             startDestination = "current",
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable("current") { CurrentWeather() }
-            composable("forecast") { DailyForecast() }
+            composable("current") {
+                weather?.let { CurrentWeather(it.current) }
+            }
+            composable("forecast") {
+                weather?.let { DailyForecast(it.forecast) }
+            }
         }
     }
 }

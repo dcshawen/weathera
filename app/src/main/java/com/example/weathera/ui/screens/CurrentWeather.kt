@@ -10,42 +10,56 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.weathera.models.CurrentWeather
+import com.example.weathera.models.WeatherIcon
+import com.example.weathera.R
 
 @Composable
-fun CurrentWeather() {
-    val date = "September 24 2025"
+fun CurrentWeather(current: CurrentWeather) {
     Column(
         modifier = Modifier
             .padding(all = 10.dp)
-        ) {
-        Text(text = date,
+    ) {
+        Text(
+            text = current.condition,
             modifier = Modifier.padding(bottom = 10.dp),
             style = androidx.compose.material3.MaterialTheme.typography.headlineLarge,
-            color = androidx.compose.material3.MaterialTheme.colorScheme.primary)
+            color = androidx.compose.material3.MaterialTheme.colorScheme.primary
+        )
         Row(modifier = Modifier.padding(bottom = 10.dp)) {
-            Image(painter = androidx.compose.ui.res.painterResource(id = com.example.weathera.R.drawable.sunny),
-                contentDescription = "Sunny Icon")
-            Text(text = "22°C",
+            Image(
+                painter = androidx.compose.ui.res.painterResource(id = current.weatherIcon.resourceId),
+                contentDescription = "${current.condition} Icon"
+            )
+            Text(
+                text = current.temperature,
                 modifier = Modifier.padding(start = 10.dp)
                     .align(Alignment.CenterVertically),
                 style = androidx.compose.material3.MaterialTheme.typography.headlineLarge,
-                color = androidx.compose.material3.MaterialTheme.colorScheme.primary)
+                color = androidx.compose.material3.MaterialTheme.colorScheme.primary
+            )
         }
         Column(
             modifier = Modifier
                 .padding(all = 10.dp)
         ) {
             Row(modifier = Modifier.padding(all = 8.dp)){
-                Text(modifier = Modifier.padding(end = 8.dp),
-                    text = "10% Chance of Precipitation.")
+                Text(
+                    modifier = Modifier.padding(end = 8.dp),
+                    text = "${current.precipitationChance} Chance of Precipitation."
+                )
             }
             Row(modifier = Modifier.padding(all = 8.dp)){
-                Text(modifier = Modifier.padding(end = 8.dp),
-                    text = "Condition: Showers")
+                Text(
+                    modifier = Modifier.padding(end = 8.dp),
+                    text = "Condition: ${current.condition}"
+                )
             }
-
-            Text(modifier = Modifier.padding(all = 8.dp),
-                text = "Wind NW at 14km/h")
+            Text(
+                modifier = Modifier.padding(all = 8.dp),
+                text = "Wind ${current.windDirection} at ${current.windSpeed}"
+            )
         }
     }
 }
