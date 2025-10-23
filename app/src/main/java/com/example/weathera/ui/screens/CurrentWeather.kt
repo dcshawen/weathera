@@ -22,18 +22,18 @@ fun CurrentWeather(current: CurrentWeather) {
             .padding(all = 10.dp)
     ) {
         Text(
-            text = current.condition,
+            text = current.condition.text,
             modifier = Modifier.padding(bottom = 10.dp),
             style = androidx.compose.material3.MaterialTheme.typography.headlineLarge,
             color = androidx.compose.material3.MaterialTheme.colorScheme.primary
         )
         Row(modifier = Modifier.padding(bottom = 10.dp)) {
             Image(
-                painter = androidx.compose.ui.res.painterResource(id = current.weatherIcon.resourceId),
+                painter = androidx.compose.ui.res.painterResource(id = current.condition.weatherIcon.resourceId),
                 contentDescription = "${current.condition} Icon"
             )
             Text(
-                text = current.temperature,
+                text = current.temperature.toString() + "°C",
                 modifier = Modifier.padding(start = 10.dp)
                     .align(Alignment.CenterVertically),
                 style = androidx.compose.material3.MaterialTheme.typography.headlineLarge,
@@ -47,18 +47,18 @@ fun CurrentWeather(current: CurrentWeather) {
             Row(modifier = Modifier.padding(all = 8.dp)){
                 Text(
                     modifier = Modifier.padding(end = 8.dp),
-                    text = "${current.precipitationChance} Chance of Precipitation."
+                    text = "${current.forecast.precipitationChance * 100}% Chance of Precipitation."
                 )
             }
             Row(modifier = Modifier.padding(all = 8.dp)){
                 Text(
                     modifier = Modifier.padding(end = 8.dp),
-                    text = "Condition: ${current.condition}"
+                    text = "Condition: ${current.condition.text}"
                 )
             }
             Text(
                 modifier = Modifier.padding(all = 8.dp),
-                text = "Wind ${current.windDirection} at ${current.windSpeed}"
+                text = "Wind ${current.windDirection} at ${current.windSpeed} km/h"
             )
         }
     }

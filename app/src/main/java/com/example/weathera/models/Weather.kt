@@ -6,14 +6,13 @@ data class Weather(
 )
 
 data class CurrentWeather(
-    val temperature: String,
-    val condition: String,
-    val precipitationChance: String,
+    val temperature: Float,
+    val condition: Condition,
     val precipitationType: String,
-    val precipitationAmount: String,
+    val precipitationAmount: Float,
     val windDirection: String,
-    val windSpeed: String,
-    val weatherIcon: WeatherIcon
+    val windSpeed: Float,
+    val forecast: Forecast
 )
 
 data class WeatherIcon(
@@ -23,14 +22,18 @@ data class WeatherIcon(
 
 data class Forecast(
     val date: String,
-    val highTemp: String,
-    val lowTemp: String,
-    val condition: String,
-    val precipitationChance: String,
+    val highTemp: Float,
+    val lowTemp: Float,
+    val condition: Condition,
+    val precipitationChance: Float,
     val precipitationType: String,
-    val precipitationAmount: String,
+    val precipitationAmount: Float,
     val windDirection: String,
-    val windSpeed: String,
-    val humidity: String,
+    val windSpeed: Float,
+    val humidity: Float,
+)
+
+data class Condition(
+    val text: String,
     val weatherIcon: WeatherIcon
 )

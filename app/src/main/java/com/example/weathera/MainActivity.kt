@@ -61,7 +61,6 @@ class MainActivity : ComponentActivity() {
                 DisplayUI(mainViewModel)
             }
         }
-
     }
 }
 

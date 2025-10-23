@@ -33,22 +33,22 @@ fun DailyForecast(forecasts: List<Forecast>) {
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Image(
-                        painter = painterResource(forecast.weatherIcon.resourceId),
+                        painter = painterResource(forecast.condition.weatherIcon.resourceId),
                         contentDescription = "Weather Icon",
                         modifier = Modifier.padding(start = 8.dp)
                     )
                     Column {
                         Text(
-                            text = "High: ${forecast.highTemp}",
+                            text = "High: ${forecast.highTemp}°C",
                             modifier = Modifier.padding(start = 8.dp)
                         )
                         Text(
-                            text = "Low: ${forecast.lowTemp}",
+                            text = "Low: ${forecast.lowTemp}°C",
                             modifier = Modifier.padding(start = 8.dp)
                         )
                     }
                     Text(
-                        text = "P.O.P.: ${forecast.precipitationChance}",
+                        text = "P.O.P.: ${forecast.precipitationChance * 100}%",
                         modifier = Modifier.padding(start = 8.dp)
                     )
                 }
