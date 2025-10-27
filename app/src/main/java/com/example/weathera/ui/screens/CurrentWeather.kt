@@ -1,6 +1,5 @@
 package com.example.weathera.ui.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
@@ -12,8 +11,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.weathera.models.CurrentWeather
-import com.example.weathera.models.WeatherIcon
-import com.example.weathera.R
+import coil.compose.AsyncImage
+import androidx.compose.foundation.Image
+import androidx.compose.ui.unit.Dp
+import coil.compose.rememberAsyncImagePainter
+import androidx.compose.foundation.layout.size
 
 @Composable
 fun CurrentWeather(current: CurrentWeather) {
@@ -28,9 +30,11 @@ fun CurrentWeather(current: CurrentWeather) {
             color = androidx.compose.material3.MaterialTheme.colorScheme.primary
         )
         Row(modifier = Modifier.padding(bottom = 10.dp)) {
+            val imageUrl = "https:${current.condition.icon}"
             Image(
-                painter = androidx.compose.ui.res.painterResource(id = current.condition.weatherIcon.resourceId),
-                contentDescription = "${current.condition} Icon"
+                painter = rememberAsyncImagePainter(imageUrl),
+                contentDescription = "${current.condition.text} Icon",
+                modifier = Modifier.size(128.dp)
             )
             Text(
                 text = current.temperature.toString() + "°C",
@@ -47,7 +51,8 @@ fun CurrentWeather(current: CurrentWeather) {
             Row(modifier = Modifier.padding(all = 8.dp)){
                 Text(
                     modifier = Modifier.padding(end = 8.dp),
-                    text = "${current.forecast.precipitationChance * 100}% Chance of Precipitation."
+                    // use precipitationAmount from CurrentWeather (mm)
+                    text = "Precipitation: ${current.precipitationAmount} mm"
                 )
             }
             Row(modifier = Modifier.padding(all = 8.dp)){

@@ -9,13 +9,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.Image
 import com.example.weathera.models.Forecast
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.res.painterResource
+import androidx.compose.foundation.Image
+import coil.compose.rememberAsyncImagePainter
+import androidx.compose.foundation.layout.size
 
 @Composable
-fun DailyForecast(forecasts: List<Forecast>) {
+fun DailyForecast(forecasts: Forecast) {
     Column {
         Row(modifier = Modifier.padding(all = 8.dp)) {
             Text(
@@ -25,30 +26,33 @@ fun DailyForecast(forecasts: List<Forecast>) {
             )
         }
         LazyColumn {
-            items(forecasts) { forecast ->
+            items(forecasts.forecastDays) { forecast ->
                 Row(modifier = Modifier.padding(all = 10.dp)) {
                     Text(
                         text = forecast.date,
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.bodyLarge
                     )
+                    val imageUrl = "https:${forecast.day.condition.icon}"
                     Image(
-                        painter = painterResource(forecast.condition.weatherIcon.resourceId),
-                        contentDescription = "Weather Icon",
-                        modifier = Modifier.padding(start = 8.dp)
+                        painter = rememberAsyncImagePainter(imageUrl),
+                        contentDescription = "${forecast.day.condition.text} Icon",
+                        modifier = Modifier
+                            .padding(start = 8.dp)
+                            .size(48.dp)
                     )
                     Column {
                         Text(
-                            text = "High: ${forecast.highTemp}°C",
+                            text = "High: ${forecast.day.highTemp}°C",
                             modifier = Modifier.padding(start = 8.dp)
                         )
                         Text(
-                            text = "Low: ${forecast.lowTemp}°C",
+                            text = "Low: ${forecast.day.lowTemp}°C",
                             modifier = Modifier.padding(start = 8.dp)
                         )
                     }
                     Text(
-                        text = "P.O.P.: ${forecast.precipitationChance * 100}%",
+                        text = "P.O.P.: ${forecast.day.precipitationChance}%",
                         modifier = Modifier.padding(start = 8.dp)
                     )
                 }
